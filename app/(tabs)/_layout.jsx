@@ -1,8 +1,9 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 import { Tabs, Redirect } from "expo-router";
-
-import { icons } from "../../constants";
+import { IoMdHome } from "react-icons/io";
+import { LiaDumbbellSolid } from "react-icons/lia";
+import { FaPlusCircle, FaHistory, FaUserCircle } from "react-icons/fa";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
@@ -43,7 +44,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.home}
+                icon={<IoMdHome />}
                 color={color}
                 name="Home"
                 focused={focused}
@@ -58,7 +59,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark}
+                icon={<LiaDumbbellSolid />}
                 color={color}
                 name="Exercises"
                 focused={focused}
@@ -73,7 +74,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.plus}
+                icon={<FaPlusCircle />}
                 color={color}
                 name="Workout"
                 focused={focused}
@@ -88,7 +89,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.plus}
+                icon={<FaHistory />}
                 color={color}
                 name="History"
                 focused={focused}
@@ -103,7 +104,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.profile}
+                icon={<FaUserCircle />}
                 color={color}
                 name="Profile"
                 focused={focused}
