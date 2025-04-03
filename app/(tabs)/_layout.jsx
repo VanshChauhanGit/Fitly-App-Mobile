@@ -4,16 +4,13 @@ import { Tabs, Redirect } from "expo-router";
 import { IoMdHome } from "react-icons/io";
 import { LiaDumbbellSolid } from "react-icons/lia";
 import { FaPlusCircle, FaHistory, FaUserCircle } from "react-icons/fa";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
-const TabIcon = ({ icon, color, name, focused }) => {
+const TabIcon = ({ IconComponent, color, name, focused }) => {
   return (
     <View className="items-center justify-center">
-      <Image
-        source={icon}
-        tintColor={color}
-        resizeMode="contain"
-        className="size-6"
-      />
+      <IconComponent size={24} color={color} focused={focused} name={name} />
     </View>
   );
 };
@@ -27,7 +24,7 @@ const TabsLayout = () => {
             fontSize: 12,
             fontWeight: "bold",
           },
-          tabBarActiveTintColor: "#FFA001",
+          tabBarActiveTintColor: "#39FF14",
           tabBarInactiveTintColor: "#CDCDE0",
           tabBarStyle: {
             backgroundColor: "#161622",
@@ -42,12 +39,11 @@ const TabsLayout = () => {
           options={{
             title: "Home",
             headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ color }) => (
               <TabIcon
-                icon={<IoMdHome />}
+                IconComponent={Ionicons}
                 color={color}
-                name="Home"
-                focused={focused}
+                name="home-outline"
               />
             ),
           }}
@@ -57,12 +53,11 @@ const TabsLayout = () => {
           options={{
             title: "Exercises",
             headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ color }) => (
               <TabIcon
-                icon={<LiaDumbbellSolid />}
+                IconComponent={FontAwesome5}
                 color={color}
-                name="Exercises"
-                focused={focused}
+                name="dumbbell"
               />
             ),
           }}
@@ -72,13 +67,8 @@ const TabsLayout = () => {
           options={{
             title: "Workout",
             headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={<FaPlusCircle />}
-                color={color}
-                name="Workout"
-                focused={focused}
-              />
+            tabBarIcon: ({ color }) => (
+              <TabIcon IconComponent={FontAwesome5} color={color} name="plus" />
             ),
           }}
         />
@@ -87,12 +77,11 @@ const TabsLayout = () => {
           options={{
             title: "History",
             headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ color }) => (
               <TabIcon
-                icon={<FaHistory />}
+                IconComponent={FontAwesome5}
                 color={color}
-                name="History"
-                focused={focused}
+                name="history"
               />
             ),
           }}
@@ -102,12 +91,11 @@ const TabsLayout = () => {
           options={{
             title: "Profile",
             headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ color }) => (
               <TabIcon
-                icon={<FaUserCircle />}
+                IconComponent={FontAwesome5}
                 color={color}
-                name="Profile"
-                focused={focused}
+                name="user-circle"
               />
             ),
           }}

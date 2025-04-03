@@ -1,5 +1,5 @@
 import { useEffect, useContext, createContext, useState } from "react";
-// import { getCurrentUser } from "@/lib/appwrite";
+import { getCurrentUser } from "@/lib/appwrite";
 
 const GlobalContext = createContext();
 
@@ -10,22 +10,22 @@ const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   getCurrentUser()
-  //     .then((res) => {
-  //       if (res) {
-  //         setIsLoggedIn(true);
-  //         setUser(res);
-  //       } else {
-  //         setIsLoggedIn(false);
-  //         setUser(null);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //     .finally(() => setIsLoading(false));
-  // }, []);
+  useEffect(() => {
+    getCurrentUser()
+      .then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          setUser(res);
+        } else {
+          setIsLoggedIn(false);
+          setUser(null);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
 
   return (
     <GlobalContext.Provider

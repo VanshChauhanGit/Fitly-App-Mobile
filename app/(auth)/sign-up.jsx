@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link } from "expo-router";
-// import { createUser } from "@/lib/appwrite";
+import { createUser } from "@/lib/appwrite";
 import { router } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { useToast } from "react-native-toast-notifications";
@@ -22,31 +22,31 @@ const SignUp = () => {
   const toast = useToast();
 
   const submit = async () => {
-    // if (!form.username || !form.email || !form.password) {
-    //   toast.show("Please fill all fields", {
-    //     type: "warning",
-    //   });
-    //   return;
-    // }
-    // setIsSubmiting(true);
-    // try {
-    //   const res = await createUser(form.email, form.password, form.username);
-    //   if (!res.success) {
-    //     toast.show(res.message, { type: "warning" });
-    //     return;
-    //   }
-    //   setUser(res.user);
-    //   setIsLoggedIn(true);
-    //   router.replace("/home");
-    //   toast.show(res.message, {
-    //     type: "success",
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.show(error.message, { type: "error" });
-    // } finally {
-    //   setIsSubmiting(false);
-    // }
+    if (!form.username || !form.email || !form.password) {
+      toast.show("Please fill all fields", {
+        type: "warning",
+      });
+      return;
+    }
+    setIsSubmiting(true);
+    try {
+      const res = await createUser(form.email, form.password, form.username);
+      if (!res.success) {
+        toast.show(res.message, { type: "warning" });
+        return;
+      }
+      setUser(res.user);
+      setIsLoggedIn(true);
+      router.replace("/home");
+      toast.show(res.message, {
+        type: "success",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.show(error.message, { type: "error" });
+    } finally {
+      setIsSubmiting(false);
+    }
   };
 
   return (

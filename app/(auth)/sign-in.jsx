@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link } from "expo-router";
-// import { getCurrentUser, SignIn as SignInUSer } from "@/lib/appwrite";
+import { getCurrentUser, SignIn as SignInUSer } from "@/lib/appwrite";
 import { router } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { useToast } from "react-native-toast-notifications";
@@ -20,40 +20,40 @@ const SignIn = () => {
   const toast = useToast();
 
   const submit = async () => {
-    //   if (!form.email || !form.password) {
-    //     toast.show("Please fill all fields!", {
-    //       type: "warning",
-    //     });
-    //     return;
-    //   }
-    //   setIsSubmiting(true);
-    //   try {
-    //     const res = await SignInUSer(form.email, form.password);
-    //     if (!res.success) {
-    //       toast.show(res.message, {
-    //         type: "warning",
-    //       });
-    //       return;
-    //     }
-    //     const result = await getCurrentUser();
-    //     if (!result) {
-    //       toast.show("Failed to fetch user details!", { type: "danger" });
-    //       return;
-    //     }
-    //     setUser(result);
-    //     setIsLoggedIn(true);
-    //     router.replace("/home");
-    //     toast.show("Logged in successfully!", {
-    //       type: "success",
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //     toast.show("An error occurred!", {
-    //       type: "danger",
-    //     });
-    //   } finally {
-    //     setIsSubmiting(false);
-    //   }
+    if (!form.email || !form.password) {
+      toast.show("Please fill all fields!", {
+        type: "warning",
+      });
+      return;
+    }
+    setIsSubmiting(true);
+    try {
+      const res = await SignInUSer(form.email, form.password);
+      if (!res.success) {
+        toast.show(res.message, {
+          type: "warning",
+        });
+        return;
+      }
+      const result = await getCurrentUser();
+      if (!result) {
+        toast.show("Failed to fetch user details!", { type: "danger" });
+        return;
+      }
+      setUser(result);
+      setIsLoggedIn(true);
+      router.replace("/home");
+      toast.show("Logged in successfully!", {
+        type: "success",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.show("An error occurred!", {
+        type: "danger",
+      });
+    } finally {
+      setIsSubmiting(false);
+    }
   };
 
   return (

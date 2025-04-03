@@ -4,7 +4,6 @@ import { StatusBar } from "expo-status-bar";
 import { Image, Text, Touchable, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import CustomButton from "@/components/CustomButton";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
 export default function Index() {
@@ -17,10 +16,10 @@ export default function Index() {
   }
 
   return (
-    <SafeAreaView className="h-full justify-end flex-1">
+    <SafeAreaView className="justify-end flex-1 h-full">
       <Image
         source={require("@/assets/images/welcome.png")}
-        className="h-full w-full absolute"
+        className="absolute w-full h-full"
       />
 
       <LinearGradient
@@ -28,13 +27,13 @@ export default function Index() {
         style={{ width: "100%", height: "60%" }}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 0.8 }}
-        className="flex justify-end pb-24 gap-6"
+        className="flex justify-end gap-6 pb-24"
       >
         <Animated.View
           entering={FadeInDown.delay(150).springify()}
-          className="items-center flex"
+          className="flex items-center"
         >
-          <Text className="text-white text-4xl font-semibold tracking-wider">
+          <Text className="text-4xl font-semibold tracking-wider text-white">
             Track <Text className="text-secondary">Workouts</Text>
           </Text>
         </Animated.View>
@@ -44,7 +43,7 @@ export default function Index() {
             onPress={() => router.push("/sign-in")}
             className="w-[80%] h-16 items-center justify-center self-center bg-secondary rounded-full border border-neutral-200"
           >
-            <Text className="text-white text-center text-2xl font-psemibold tracking-wider">
+            <Text className="text-2xl tracking-wider text-center text-white font-psemibold">
               Get Started
             </Text>
           </TouchableOpacity>
