@@ -1,9 +1,5 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
 import { Tabs, Redirect } from "expo-router";
-import { IoMdHome } from "react-icons/io";
-import { LiaDumbbellSolid } from "react-icons/lia";
-import { FaPlusCircle, FaHistory, FaUserCircle } from "react-icons/fa";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
@@ -28,7 +24,7 @@ const TabsLayout = () => {
           tabBarInactiveTintColor: "#CDCDE0",
           tabBarStyle: {
             backgroundColor: "#161622",
-            height: 60,
+            height: 80,
             borderTopWidth: 0.5,
             borderColor: "#CDCDE0",
           },
@@ -51,7 +47,7 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="exercises"
           options={{
-            title: "Exercises",
+            title: "exercises",
             headerShown: false,
             tabBarIcon: ({ color }) => (
               <TabIcon

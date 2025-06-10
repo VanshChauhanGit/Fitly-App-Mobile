@@ -1,6 +1,5 @@
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { Redirect, useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { Image, Text, Touchable, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
@@ -12,14 +11,14 @@ export default function Index() {
   const router = useRouter();
 
   if (!isLoading && isLoggedIn) {
-    return <Redirect href="/home" />;
+    return <Redirect href="/exercises" />;
   }
 
   return (
-    <SafeAreaView className="justify-end flex-1 h-full">
+    <SafeAreaView className="relative justify-end h-full bg-primary">
       <Image
         source={require("@/assets/images/welcome.png")}
-        className="absolute w-full h-full"
+        className="absolute top-0 w-full h-full"
       />
 
       <LinearGradient

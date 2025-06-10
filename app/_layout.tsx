@@ -4,8 +4,9 @@ import { SplashScreen, Stack } from "expo-router";
 import GlobalProvider from "@/context/GlobalProvider";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { Image } from "react-native";
+import { Image, View as RNView } from "react-native";
 import { ToastProvider } from "react-native-toast-notifications";
+import { View } from "react-native-reanimated/lib/typescript/Animated";
 
 const SuccessIcon = () => {
   return (
@@ -93,10 +94,16 @@ export default function RootLayout() {
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="exercises/[bodyPart]"
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack>
         </GlobalProvider>
       </ToastProvider>
-      <StatusBar style="light" backgroundColor="#161622" />
+      <StatusBar style="light" translucent />
     </>
   );
 }

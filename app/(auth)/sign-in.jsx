@@ -1,14 +1,19 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { Link } from "expo-router";
-import { getCurrentUser, SignIn as SignInUSer } from "@/lib/appwrite";
+import {
+  getCurrentUser,
+  SignIn as SignInUSer,
+  signInWithGoogle,
+} from "@/lib/appwrite";
 import { router } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { useToast } from "react-native-toast-notifications";
 import Loader from "@/components/Loader";
+import GoogleLoginBtn from "../../components/GoogleLoginBtn";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -56,6 +61,41 @@ const SignIn = () => {
     }
   };
 
+  const submitWithGoogle = async () => {
+    setIsSubmiting(true);
+    try {
+      const res = await signInWithGoogle(); // the function we added earlier
+
+      if (!res.success) {
+        toast.show(res.message, {
+          type: "warning",
+        });
+        return;
+      }
+
+      const result = await getCurrentUser();
+      if (!result) {
+        toast.show("Failed to fetch user details!", { type: "danger" });
+        return;
+      }
+
+      setUser(result);
+      setIsLoggedIn(true);
+      router.replace("/home");
+
+      toast.show("Logged in with Google!", {
+        type: "success",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.show("Google login failed!", {
+        type: "danger",
+      });
+    } finally {
+      setIsSubmiting(false);
+    }
+  };
+
   return (
     <>
       <SafeAreaView className="h-full bg-primary">
@@ -85,13 +125,32 @@ const SignIn = () => {
               handleChangeText={(e) => setForm({ ...form, password: e })}
               otherStyles="mt-7"
             />
-
             <CustomButton
               title="Sign In"
               handlePress={submit}
               isLoading={isSubmiting}
               containerStyles="mt-7 w-full"
             />
+
+            <View className="flex-row items-center justify-between w-full mt-5">
+              <View className="h-[1px] w-[40%] bg-gray-100" />
+              <Text className="text-lg text-gray-100 font-pregular">Or</Text>
+              <View className="h-[1px] w-[40%] bg-gray-100" />
+            </View>
+
+            <TouchableOpacity
+              className="flex-row items-center justify-center w-full h-16 gap-2 mt-2 border border-white rounded-lg"
+              onPress={submitWithGoogle}
+            >
+              <Image
+                source={require("@/assets/icons/google.png")}
+                className="size-8"
+                resizeMode="contain"
+              />
+              <Text className="text-2xl text-white font-pmedium">
+                Login with Google
+              </Text>
+            </TouchableOpacity>
 
             <View className="flex-row justify-center gap-2 pt-5">
               <Text className="text-lg text-gray-100 font-pregular">
