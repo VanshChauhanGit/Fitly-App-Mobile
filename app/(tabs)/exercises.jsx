@@ -5,7 +5,7 @@ import BodyParts from "../../components/BodyParts";
 
 const Exercises = () => {
   return (
-    <SafeAreaView className="flex-1 px-4 bg-primary gap-y-4">
+    <SafeAreaView className="flex-1 px-4 pb-0 bg-primary gap-y-4">
       {/* Punchline */}
       <View className="flex-row items-center justify-center gap-4 mt-5">
         <View className="items-center gap-y-1">

@@ -5,28 +5,26 @@ import { useRouter } from "expo-router";
 
 const BodyParts = () => {
   const router = useRouter();
-  const handleBodyPartPress = (bodyPart) => {
-    router.push({
-      pathname: "/exercises/[bodyPart]",
-      params: { bodyPart: bodyPart.name },
-    });
-  };
+  // const handleBodyPartPress = (bodyPart) => {
+  //   console.log("Selected body part:", bodyPart);
+  //   router.push({
+  //     pathname: "/exercises/[bodyPart]",
+  //     params: { bodyPart },
+  //   });
+  // };
 
   return (
     <View>
-      <Text className="text-white font-pregular text-3xl mb-2">Exercises</Text>
+      <Text className="mb-2 text-3xl text-white font-pregular">Exercises</Text>
 
       <FlatList
+        className="pb-20"
         data={bodyParts}
         numColumns={2}
         keyExtractor={(item) => item.name}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <BodyPartCard
-            item={item}
-            index={index}
-            handleBodyPartPress={handleBodyPartPress}
-          />
+          <BodyPartCard item={item} index={index} router={router} />
         )}
       />
     </View>
@@ -35,15 +33,17 @@ const BodyParts = () => {
 
 export default BodyParts;
 
-const BodyPartCard = ({ item, index, handleBodyPartPress }) => {
+const BodyPartCard = ({ item, index, router }) => {
   return (
     <TouchableOpacity
-      onPress={() => handleBodyPartPress(item)}
+      onPress={() =>
+        router.push({ pathname: "/exercises/[bodyPart]", params: item })
+      }
       className={`w-1/2 p-2 ${index % 2 === 0 ? "pr-1" : "pl-1"}`}
     >
       <Image
         source={item.image}
-        className="w-full h-60 rounded-lg"
+        className="w-full rounded-lg h-60"
         resizeMode="cover"
       />
       <LinearGradient
@@ -51,7 +51,7 @@ const BodyPartCard = ({ item, index, handleBodyPartPress }) => {
         className="absolute inset-0 rounded-lg"
       />
       <View className="absolute bottom-0 left-0 right-0 p-2">
-        <Text className="text-white text-center tracking-wider font-pbold text-lg">
+        <Text className="text-lg tracking-wider text-center text-white font-pbold">
           {item?.name}
         </Text>
       </View>

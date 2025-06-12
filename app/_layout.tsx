@@ -1,12 +1,10 @@
-import { StatusBar } from "expo-status-bar";
 import "../global.css";
 import { SplashScreen, Stack } from "expo-router";
 import GlobalProvider from "@/context/GlobalProvider";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { Image, View as RNView } from "react-native";
+import { Image, View as RNView, StatusBar } from "react-native";
 import { ToastProvider } from "react-native-toast-notifications";
-import { View } from "react-native-reanimated/lib/typescript/Animated";
 
 const SuccessIcon = () => {
   return (
@@ -103,7 +101,11 @@ export default function RootLayout() {
           </Stack>
         </GlobalProvider>
       </ToastProvider>
-      <StatusBar style="light" translucent />
+      <StatusBar
+        barStyle={"light-content"}
+        translucent
+        backgroundColor={"transparent"}
+      />
     </>
   );
 }
