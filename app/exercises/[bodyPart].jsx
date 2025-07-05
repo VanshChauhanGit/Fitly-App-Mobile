@@ -13,25 +13,27 @@ import { useEffect, useState } from "react";
 import { fetchExercisesByBodyPart } from "../../api/exerciseDB";
 import { Ionicons } from "@expo/vector-icons";
 import Loader from "../../components/Loader";
+import { exerciseData } from "../../constants";
 
 const ExerciseScreen = () => {
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState(exerciseData);
 
   const router = useRouter();
-  const item = useLocalSearchParams();
+  const { name, image } = useLocalSearchParams();
 
-  useEffect(() => {
-    if (item) getExercises(item.name);
-  }, [item]);
+  // useEffect(() => {
+  //   if (name) getExercises(name);
+  // }, [name]);
 
-  const getExercises = async (bodyPart) => {
-    let data = await fetchExercisesByBodyPart(bodyPart);
-    if (data) {
-      setExercises(data);
-    } else {
-      console.error("No exercises found for this body part");
-    }
-  };
+  // const getExercises = async (bodyPart) => {
+  //   let data = await fetchExercisesByBodyPart(bodyPart);
+  //   if (data) {
+  //     setExercises(data);
+  //     console.log("Fetched exercises:", data[0]);
+  //   } else {
+  //     console.error("No exercises found for this body part");
+  //   }
+  // };
 
   return (
     <ScrollView className="bg-primary">
@@ -42,7 +44,7 @@ const ExerciseScreen = () => {
         translucent={true}
       />
       <Image
-        source={item.image}
+        source={image}
         className="w-full h-[45vh] rounded-lg rounded-b-[25px] self-center"
         resizeMode="cover"
       />
@@ -66,47 +68,43 @@ const ExerciseScreen = () => {
       {/* Exercises */}
       <View className="mx-4 mt-4">
         <Text className="text-3xl tracking-wider text-white font-psemibold">
-          {item.name
+          {name
             .split(" ")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ")}{" "}
           Exercises
         </Text>
 
-        {exercises.length === 0 ? (
-          <Loader />
-        ) : (
-          exercises.map((exercise, index) => (
-            <TouchableOpacity
-              key={index}
-              // onPress={() =>
-              //   router.push({
-              //     pathname: "/exerciseDetails/[id]",
-              //     params: { id: exercise.id },
-              //   })
-              // }
-              className="flex-row items-center my-4 bg-gray-200 gap-x-4"
-            >
-              <Image
-                source={{ uri: exercise.gifUrl }}
-                className="w-24 h-24 rounded-lg"
-                resizeMode="cover"
-              />
-              <View className="flex-1">
-                <Text className="text-lg text-white font-psemibold">
-                  {exercise.name}
-                </Text>
-                <Text className="text-sm text-secondary font-pregular">
-                  {exercise.target}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ))
-        )}
+        <View className="flex-row items-center justify-evenly my-6 flex-wrap gap-y-12">
+          {exercises.length === 0 ? (
+            <Loader />
+          ) : (
+            exercises.map((exercise, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() =>
+                  router.push({
+                    pathname: "/exerciseDetails",
+                    params: exercise,
+                  })
+                }
+                className="w-[46%] h-60 rounded-lg"
+              >
+                <View className="relative w-full h-full mb-2">
+                  <Image
+                    source={{ uri: exercise.gifUrl }}
+                    className="w-full h-full rounded-lg"
+                    resizeMode="cover"
+                  />
 
-        <Text className="mt-1 text-lg tracking-wide text-secondary font-pregular">
-          {exercises.length} exercises
-        </Text>
+                  <Text className="text-sm text-center text-white font-psemibold">
+                    {exercise.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))
+          )}
+        </View>
       </View>
     </ScrollView>
   );
